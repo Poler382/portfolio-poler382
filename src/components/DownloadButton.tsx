@@ -139,7 +139,7 @@ const DownloadButton = ({ profile, disabled }: DownloadButtonProps) => {
     <div className="space-y-4">
       {/* ダウンロードボタン */}
       <motion.button
-        className={getButtonClass()}
+        className={`${getButtonClass()} select-none`}
         onClick={generateAndDownload}
         disabled={disabled || isGenerating}
         whileHover={!disabled && status === "idle" ? { scale: 1.02, y: -2 } : {}}

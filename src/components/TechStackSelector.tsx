@@ -113,7 +113,7 @@ const TechStackSelector = ({ selectedTechs, onTechSelect }: TechStackSelectorPro
             return (
               <motion.div
                 key={tech.id}
-                className={`relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
+                className={`relative p-4 rounded-xl border-2 cursor-pointer select-none transition-all duration-200 ${
                   selected
                     ? "border-primary bg-primary/5 shadow-lg"
                     : "border-base-300 hover:border-primary/50 hover:shadow-md"

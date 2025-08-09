@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Code, FileText, Sparkles } from "lucide-react";
-import Header from "@/components/Header";
+import Header from "@/components/common/Header";
 import Footer from "@/components/Footer";
 
 interface AppCard {
@@ -74,17 +74,6 @@ const HomePage = () => {
           </p>
         </motion.div>
 
-        {/* ナビゲーション */}
-        <motion.div className="flex justify-center gap-6 mb-16" variants={cardVariants}>
-          <Link
-            href="/blog"
-            className="btn btn-outline btn-lg gap-3 hover:scale-105 transition-transform"
-          >
-            <FileText size={24} />
-            ブログ
-          </Link>
-        </motion.div>
-
         {/* アプリケーション一覧 */}
         <motion.div
           className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto"
@@ -99,72 +88,9 @@ const HomePage = () => {
                 variants={cardVariants}
                 whileHover={{ scale: 1.03, y: -10 }}
                 transition={{ duration: 0.3 }}
-              >
-                <Link href={app.path} className="block">
-                  <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden">
-                    {/* カードヘッダー */}
-                    <div className={`card-body p-0 bg-gradient-to-br ${app.color} text-white`}>
-                      <div className="p-6">
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className="p-3 bg-white/20 rounded-xl">
-                            <IconComponent size={32} />
-                          </div>
-                          <h2 className="card-title text-2xl font-bold">{app.title}</h2>
-                        </div>
-                        <p className="text-white/90 leading-relaxed">{app.description}</p>
-                      </div>
-                    </div>
-
-                    {/* カードボディ */}
-                    <div className="card-body">
-                      <div className="space-y-3">
-                        <h3 className="font-semibold text-base-content flex items-center gap-2">
-                          <Sparkles size={18} className="text-primary" />
-                          主な機能
-                        </h3>
-                        <ul className="space-y-2">
-                          {app.features.map((feature, featureIndex) => (
-                            <li
-                              key={featureIndex}
-                              className="flex items-center gap-3 text-base-content/80"
-                            >
-                              <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="card-actions justify-end mt-6">
-                        <motion.button
-                          className="btn btn-primary gap-2"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          アプリを開く
-                          <ArrowRight size={18} />
-                        </motion.button>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+              ></motion.div>
             );
           })}
-        </motion.div>
-
-        {/* Coming Soon セクション */}
-        <motion.div className="text-center mt-16" variants={cardVariants}>
-          <div className="card bg-base-100 shadow-lg max-w-2xl mx-auto">
-            <div className="card-body">
-              <h3 className="card-title text-2xl justify-center mb-4">🚧 More Apps Coming Soon</h3>
-              <p className="text-base-content/70">
-                新しいアプリケーションを開発中です。
-                <br />
-                お楽しみにお待ちください！
-              </p>
-            </div>
-          </div>
         </motion.div>
       </motion.div>
 

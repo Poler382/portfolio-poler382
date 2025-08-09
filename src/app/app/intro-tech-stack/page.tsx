@@ -6,7 +6,7 @@ import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 // Components
-import Header from "@/components/Header";
+import Header from "@/components/common/Header";
 import ProfileSection from "@/components/ProfileSection";
 import TechStackSelector from "@/components/TechStackSelector";
 import SelectedTechList from "@/components/SelectedTechList";

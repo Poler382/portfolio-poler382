@@ -38,7 +38,7 @@ const Navigation = () => {
           >
             <Link href="/">
               <motion.h1
-                className="text-xl font-bold text-primary cursor-pointer"
+                className="text-xl font-bold text-primary cursor-pointer select-none"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -59,7 +59,7 @@ const Navigation = () => {
                 <motion.div key={id}>
                   <Link
                     href={path}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-2 ${
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-2 select-none ${
                       pathname === path || (path === "/app" && pathname.startsWith("/app"))
                         ? "bg-primary text-white"
                         : "text-base-content hover:bg-base-300 hover:text-primary"
@@ -91,7 +91,7 @@ const Navigation = () => {
           >
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="btn btn-ghost btn-sm"
+              className="btn btn-ghost btn-sm select-none"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -143,7 +143,7 @@ const Navigation = () => {
                   <motion.div key={id}>
                     <Link
                       href={path}
-                      className={`w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center gap-2 ${
+                      className={`w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center gap-2 select-none ${
                         pathname === path || (path === "/app" && pathname.startsWith("/app"))
                           ? "bg-primary text-white"
                           : "text-base-content hover:bg-base-300 hover:text-primary"

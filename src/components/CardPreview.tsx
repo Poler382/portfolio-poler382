@@ -38,7 +38,7 @@ const CardPreview = forwardRef<HTMLDivElement, CardPreviewProps>(({ profile, tec
     <div className="w-full max-w-md mx-auto">
       <motion.div
         ref={ref}
-        className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100"
+        className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 select-none"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

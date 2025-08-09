@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Code, ArrowLeft } from "lucide-react";
-import Header from "@/components/Header";
+import Header from "@/components/common/Header";
 import Footer from "@/components/Footer";
 
 interface AppCard {
@@ -70,7 +70,7 @@ const AppsPage = () => {
         <motion.div className="text-center mb-12" variants={cardVariants}>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-6"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-6 select-none"
           >
             <ArrowLeft size={20} />
             ホームに戻る
@@ -100,7 +100,7 @@ const AppsPage = () => {
               >
                 {app.status === "available" ? (
                   <Link href={app.path} className="block h-full">
-                    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden h-full">
+                    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden h-full select-none">
                       {/* カードヘッダー */}
                       <div className={`bg-gradient-to-br ${app.color} text-white p-6`}>
                         <div className="flex items-center gap-4 mb-4">
@@ -136,7 +136,7 @@ const AppsPage = () => {
 
                         <div className="card-actions justify-end mt-6">
                           <motion.button
-                            className="btn btn-primary gap-2"
+                            className="btn btn-primary gap-2 select-none"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -148,7 +148,7 @@ const AppsPage = () => {
                     </div>
                   </Link>
                 ) : (
-                  <div className="card bg-base-100 shadow-xl overflow-hidden h-full opacity-75">
+                  <div className="card bg-base-100 shadow-xl overflow-hidden h-full opacity-75 select-none">
                     {/* Coming Soon カード */}
                     <div className={`bg-gradient-to-br ${app.color} text-white p-6`}>
                       <div className="flex items-center gap-4 mb-4">
@@ -182,7 +182,7 @@ const AppsPage = () => {
                       </div>
 
                       <div className="card-actions justify-end mt-6">
-                        <button className="btn btn-disabled gap-2">Coming Soon</button>
+                        <button className="btn btn-disabled gap-2 select-none">Coming Soon</button>
                       </div>
                     </div>
                   </div>

@@ -33,7 +33,7 @@ const SortableItem = ({ tech, index }: SortableItemProps) => {
     <motion.div
       ref={setNodeRef}
       style={style}
-      className={`group relative bg-base-100 rounded-xl p-4 border-2 shadow-sm transition-all duration-200 ${
+      className={`group relative bg-base-100 rounded-xl p-4 border-2 shadow-sm select-none transition-all duration-200 ${
         isDragging
           ? "border-primary shadow-lg scale-105 rotate-2 opacity-80"
           : "border-base-300 hover:border-primary/50 hover:shadow-md"
@@ -48,7 +48,7 @@ const SortableItem = ({ tech, index }: SortableItemProps) => {
       <div
         {...attributes}
         {...listeners}
-        className={`absolute left-2 top-1/2 transform -translate-y-1/2 p-1 rounded cursor-grab active:cursor-grabbing transition-colors duration-200 ${
+        className={`absolute left-2 top-1/2 transform -translate-y-1/2 p-1 rounded cursor-grab active:cursor-grabbing select-none transition-colors duration-200 ${
           isDragging ? "text-primary" : "text-base-content/40 hover:text-primary"
         }`}
       >
