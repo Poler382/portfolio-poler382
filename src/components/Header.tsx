@@ -14,22 +14,14 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* ロゴとタイトル */}
-          <motion.div
-            className="flex items-center gap-3"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <motion.div
-              className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center"
-              whileHover={{ rotate: 180 }}
-              transition={{ duration: 0.3 }}
-            >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
-            </motion.div>
+            </div>
             <div>
               <h1 className="text-2xl font-bold text-base-content">Poler382</h1>
             </div>
-          </motion.div>
+          </div>
 
           {/* ナビゲーション */}
           <motion.div
