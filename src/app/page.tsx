@@ -1,103 +1,176 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, Code, FileText, Sparkles } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+interface AppCard {
+  title: string;
+  description: string;
+  path: string;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  color: string;
+  features: string[];
+}
+
+const HomePage = () => {
+  const apps: AppCard[] = [
+    {
+      title: "IntroTechStack",
+      description: "技術スタックをカード形式で美しく表示し、PNG画像として保存できるツールです。",
+      path: "/app/intro-tech-stack",
+      icon: Code,
+      color: "from-blue-500 to-purple-600",
+      features: [
+        "技術スタックの視覚化",
+        "カスタマイズ可能なデザイン",
+        "PNG形式でのエクスポート",
+        "ドラッグ&ドロップ対応",
+      ],
+    },
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { y: 60, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: "easeOut" as const },
+    },
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-base-200">
+      <Header />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <motion.div
+        className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-16"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        {/* ヒーローセクション */}
+        <motion.div className="text-center mb-16" variants={cardVariants}>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-base-content mb-6">
+            Welcome to My Apps
+          </h1>
+          <p className="text-lg sm:text-xl text-base-content/70 max-w-3xl mx-auto leading-relaxed">
+            便利なWebアプリケーションを作成しています。
+            <br />
+            各アプリは独自の機能を持ち、日々の作業を効率化します。
+          </p>
+        </motion.div>
+
+        {/* ナビゲーション */}
+        <motion.div className="flex justify-center gap-6 mb-16" variants={cardVariants}>
+          <Link
+            href="/blog"
+            className="btn btn-outline btn-lg gap-3 hover:scale-105 transition-transform"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+            <FileText size={24} />
+            ブログ
+          </Link>
+        </motion.div>
+
+        {/* アプリケーション一覧 */}
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          variants={containerVariants}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          {apps.map((app) => {
+            const IconComponent = app.icon;
+
+            return (
+              <motion.div
+                key={app.path}
+                variants={cardVariants}
+                whileHover={{ scale: 1.03, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Link href={app.path} className="block">
+                  <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden">
+                    {/* カードヘッダー */}
+                    <div className={`card-body p-0 bg-gradient-to-br ${app.color} text-white`}>
+                      <div className="p-6">
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className="p-3 bg-white/20 rounded-xl">
+                            <IconComponent size={32} />
+                          </div>
+                          <h2 className="card-title text-2xl font-bold">{app.title}</h2>
+                        </div>
+                        <p className="text-white/90 leading-relaxed">{app.description}</p>
+                      </div>
+                    </div>
+
+                    {/* カードボディ */}
+                    <div className="card-body">
+                      <div className="space-y-3">
+                        <h3 className="font-semibold text-base-content flex items-center gap-2">
+                          <Sparkles size={18} className="text-primary" />
+                          主な機能
+                        </h3>
+                        <ul className="space-y-2">
+                          {app.features.map((feature, featureIndex) => (
+                            <li
+                              key={featureIndex}
+                              className="flex items-center gap-3 text-base-content/80"
+                            >
+                              <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="card-actions justify-end mt-6">
+                        <motion.button
+                          className="btn btn-primary gap-2"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          アプリを開く
+                          <ArrowRight size={18} />
+                        </motion.button>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* Coming Soon セクション */}
+        <motion.div className="text-center mt-16" variants={cardVariants}>
+          <div className="card bg-base-100 shadow-lg max-w-2xl mx-auto">
+            <div className="card-body">
+              <h3 className="card-title text-2xl justify-center mb-4">🚧 More Apps Coming Soon</h3>
+              <p className="text-base-content/70">
+                新しいアプリケーションを開発中です。
+                <br />
+                お楽しみにお待ちください！
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+
+      <Footer />
     </div>
   );
-}
+};
+
+export default HomePage;
