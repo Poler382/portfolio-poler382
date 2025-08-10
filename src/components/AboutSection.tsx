@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, MapPin, Briefcase, TrendingUp } from "lucide-react";
+import { Calendar, MapPin, Briefcase, TrendingUp, GraduationCap } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
@@ -33,28 +33,42 @@ const AboutSection = () => {
 
   const timeline = [
     {
-      year: "2019-2023",
-      title: "Web Engineer",
-      company: "Tech Company",
+      year: "〜2019",
+      title: "機械学習専攻",
+      company: "大学",
       description:
-        "React/Next.js、Python、Unityを使用したWebアプリケーション・ゲーム開発に従事。フロントエンドからバックエンドまで幅広い技術領域をカバー。",
-      skills: ["React", "Next.js", "TypeScript", "Python", "Unity", "Node.js"],
+        "機械学習を専攻。統計・アルゴリズム・データ分析の基礎を修得し、以後の実務の土台を形成。",
+      skills: ["Machine Learning", "Python", "統計", "データ分析"],
+      icon: GraduationCap,
+      color: "from-primary to-secondary",
+    },
+    {
+      year: "2019-2023",
+      title: "Web/ネイティブエンジニア & スクラムマスター",
+      company: "ベネッセ（進研ゼミ中学講座）",
+      description:
+        "進研ゼミ中学講座のサービス開発を担当。PG/SMを兼任し、Web/ネイティブ双方で開発とチームファシリテーションを推進。",
+      skills: ["React", "Next.js", "TypeScript", "Unity", "iOS/Android", "Scrum"],
+      icon: Briefcase,
+      color: "from-secondary to-primary",
+    },
+    {
+      year: "2023-2024",
+      title: "スクラムマスター（調査PJリード）",
+      company: "ベネッセ（開発部/事業部 兼務）",
+      description:
+        "開発部と事業部を兼務し、調査プロジェクトをSMとしてリード。透明性と学びの可視化を軸に、意思決定の質と速度を向上。",
+      skills: ["Scrum Master", "調査設計", "アジリティ", "ステークホルダー調整"],
       icon: Briefcase,
       color: "from-primary to-secondary",
     },
     {
       year: "2024-現在",
-      title: "Product Manager",
-      company: "Product Company",
+      title: "プロダクトオーナー（新規事業開発）",
+      company: "ベネッセ",
       description:
-        "エンジニア経験を活かし、技術的な実現可能性とビジネス価値の両面からプロダクト戦略を策定。開発チームとのコミュニケーションを円滑に進めています。",
-      skills: [
-        "Product Strategy",
-        "User Research",
-        "Data Analysis",
-        "Agile/Scrum",
-        "Stakeholder Management",
-      ],
+        "立ち上がり期の新規事業開発においてPOを担当。SM的な伴走やPGとのコミュニケーション、営業との折衝など、全セグメントと連携して推進。",
+      skills: ["Product Owner", "仮説検証", "課題発見", "営業折衝", "ステークホルダー管理"],
       icon: TrendingUp,
       color: "from-secondary to-primary",
     },
