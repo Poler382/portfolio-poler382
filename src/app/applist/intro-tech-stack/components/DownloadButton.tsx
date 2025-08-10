@@ -25,12 +25,23 @@ const DownloadButton = ({ profile, disabled, compact = false }: DownloadButtonPr
     setStatus("generating");
 
     try {
-      // カード要素を取得
-      const cardElement = document.getElementById("tech-card");
+      // カード要素を取得（デスクトップ優先、なければモバイル）
+      let cardElement = document.getElementById("tech-card-desktop");
+      if (!cardElement) {
+        cardElement = document.getElementById("tech-card-mobile");
+      }
 
       if (!cardElement) {
         throw new Error("カード要素が見つかりません");
       }
+
+      // 出力サイズ（向きに応じたアスペクト比で拡大）
+      const orientation = cardElement.getAttribute("data-orientation") as
+        | "horizontal"
+        | "vertical"
+        | null;
+      const baseWidth = orientation === "horizontal" ? 1280 : 720; // 16:9 → 1280x720, 9:16 → 720x1280 基準
+      const baseHeight = orientation === "horizontal" ? 720 : 1280;
 
       // html2canvasの設定
       const canvas = await html2canvas(cardElement, {
@@ -41,12 +52,12 @@ const DownloadButton = ({ profile, disabled, compact = false }: DownloadButtonPr
         foreignObjectRendering: false, // SVG内のforeignObjectを無効化
         logging: false, // ログを無効化してパフォーマンス向上
         removeContainer: true, // 不要なコンテナを削除
-        width: 400,
-        height: Math.max(500, cardElement.scrollHeight),
+        width: baseWidth,
+        height: baseHeight,
         scrollX: 0,
         scrollY: 0,
-        windowWidth: 400,
-        windowHeight: Math.max(500, cardElement.scrollHeight),
+        windowWidth: baseWidth,
+        windowHeight: baseHeight,
         ignoreElements: (element) => {
           // 問題のある要素をスキップ
           if (element.classList?.contains("skip-capture")) return true;
@@ -65,7 +76,8 @@ const DownloadButton = ({ profile, disabled, compact = false }: DownloadButtonPr
         },
         onclone: (clonedDoc) => {
           // クローンされたドキュメント内の色指定を修正
-          const clonedElement = clonedDoc.getElementById("tech-card");
+          const cardElementId = cardElement?.id || "tech-card";
+          const clonedElement = clonedDoc.getElementById(cardElementId);
           if (clonedElement) {
             // 問題のあるSVG要素を削除または置換
             const svgElements = clonedElement.querySelectorAll("svg");

@@ -140,6 +140,7 @@ const IntroTechStackPage = () => {
                     techs={selectedTechs}
                     orientation={cardOrientation}
                     onOrientationChange={setCardOrientation}
+                    captureId="tech-card-mobile"
                   />
                 </div>
               </div>
@@ -261,6 +262,7 @@ const IntroTechStackPage = () => {
                       techs={selectedTechs}
                       orientation={cardOrientation}
                       onOrientationChange={setCardOrientation}
+                      captureId="tech-card-desktop"
                     />
                   </div>
 
