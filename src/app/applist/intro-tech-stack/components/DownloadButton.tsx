@@ -11,9 +11,10 @@ interface DownloadButtonProps {
   profile: Profile;
   techs: TechStack[];
   disabled?: boolean;
+  compact?: boolean; // コンパクト表示用
 }
 
-const DownloadButton = ({ profile, disabled }: DownloadButtonProps) => {
+const DownloadButton = ({ profile, disabled, compact = false }: DownloadButtonProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [status, setStatus] = useState<"idle" | "generating" | "success" | "error">("idle");
 
@@ -37,12 +38,145 @@ const DownloadButton = ({ profile, disabled }: DownloadButtonProps) => {
         scale: 2, // 高解像度で生成
         useCORS: true,
         allowTaint: true,
+        foreignObjectRendering: false, // SVG内のforeignObjectを無効化
+        logging: false, // ログを無効化してパフォーマンス向上
+        removeContainer: true, // 不要なコンテナを削除
         width: 400,
         height: Math.max(500, cardElement.scrollHeight),
         scrollX: 0,
         scrollY: 0,
         windowWidth: 400,
         windowHeight: Math.max(500, cardElement.scrollHeight),
+        ignoreElements: (element) => {
+          // 問題のある要素をスキップ
+          if (element.classList?.contains("skip-capture")) return true;
+
+          // SVG要素で問題が起きる可能性があるものをスキップ
+          if (element.tagName === "SVG" || element.tagName === "svg") {
+            return true;
+          }
+
+          // Lucide Reactアイコンなどの複雑なSVGをスキップ
+          if (element.querySelector("svg") && element.classList?.contains("lucide")) {
+            return true;
+          }
+
+          return false;
+        },
+        onclone: (clonedDoc) => {
+          // クローンされたドキュメント内の色指定を修正
+          const clonedElement = clonedDoc.getElementById("tech-card");
+          if (clonedElement) {
+            // 問題のあるSVG要素を削除または置換
+            const svgElements = clonedElement.querySelectorAll("svg");
+            svgElements.forEach((svg) => {
+              // SVGを絵文字やシンプルなテキストに置換
+              const placeholder = clonedDoc.createElement("span");
+              const parentElement = svg.parentNode;
+
+              // 親要素のクラスから推測してアイコンを決定
+              let iconText = "●";
+              if (parentElement && parentElement.textContent) {
+                const content = parentElement.textContent.toLowerCase();
+                if (content.includes("github")) iconText = "🐙";
+                else if (content.includes("twitter") || content.includes("x")) iconText = "🐦";
+                else if (content.includes("instagram")) iconText = "📷";
+                else if (content.includes("external")) iconText = "🔗";
+                else if (content.includes("user")) iconText = "👤";
+                else if (content.includes("download")) iconText = "📥";
+                else if (content.includes("check")) iconText = "✓";
+                else if (content.includes("error") || content.includes("alert")) iconText = "⚠️";
+              }
+
+              placeholder.textContent = iconText;
+              placeholder.style.display = "inline-block";
+              placeholder.style.width = svg.getAttribute("width") || "16px";
+              placeholder.style.height = svg.getAttribute("height") || "16px";
+              placeholder.style.textAlign = "center";
+              placeholder.style.lineHeight = svg.getAttribute("height") || "16px";
+              placeholder.style.fontSize = "12px";
+              placeholder.style.color = "inherit";
+
+              if (svg.parentNode) {
+                svg.parentNode.replaceChild(placeholder, svg);
+              }
+            });
+
+            // lab()やcolor-mix()などの新しいCSS関数を標準的な色に置換
+            const style = clonedDoc.createElement("style");
+            style.textContent = `
+              /* 基本色の上書き */
+              :root {
+                --p: 263 91% 51% !important;
+                --s: 316 70% 51% !important;
+                --a: 175 84% 39% !important;
+                --n: 220 13% 18% !important;
+                --b1: 0 0% 100% !important;
+                --b2: 0 0% 95% !important;
+                --b3: 0 0% 90% !important;
+                --bc: 220 13% 18% !important;
+              }
+              
+              /* 問題のある色関数を修正 */
+              * {
+                color: inherit !important;
+                background-color: inherit !important;
+                border-color: inherit !important;
+              }
+              
+              /* グラデーション */
+              .bg-gradient-to-br {
+                background: linear-gradient(135deg, rgb(87, 13, 248) 0%, rgb(240, 0, 184) 100%) !important;
+              }
+              .bg-gradient-to-r {
+                background: linear-gradient(90deg, rgb(87, 13, 248) 0%, rgb(240, 0, 184) 100%) !important;
+              }
+              
+              /* ベースカラー */
+              .bg-base-100 { background-color: rgb(255, 255, 255) !important; }
+              .bg-base-200 { background-color: rgb(242, 242, 242) !important; }
+              .bg-base-300 { background-color: rgb(229, 229, 229) !important; }
+              .text-base-content { color: rgb(31, 41, 55) !important; }
+              .border-base-200 { border-color: rgb(229, 231, 235) !important; }
+              
+              /* プライマリカラー */
+              .bg-primary { background-color: rgb(87, 13, 248) !important; }
+              .text-primary { color: rgb(87, 13, 248) !important; }
+              .text-primary-content { color: rgb(255, 255, 255) !important; }
+              .bg-primary-content { background-color: rgb(255, 255, 255) !important; }
+              .border-primary { border-color: rgb(87, 13, 248) !important; }
+              
+              /* セカンダリカラー */
+              .bg-secondary { background-color: rgb(240, 0, 184) !important; }
+              .text-secondary { color: rgb(240, 0, 184) !important; }
+              .text-secondary-content { color: rgb(255, 255, 255) !important; }
+              
+              /* アクセントカラー */
+              .bg-accent { background-color: rgb(0, 186, 159) !important; }
+              .text-accent { color: rgb(0, 186, 159) !important; }
+              .text-accent-content { color: rgb(255, 255, 255) !important; }
+              
+              /* その他のユーティリティ */
+              .bg-opacity-10 { background-color: rgba(87, 13, 248, 0.1) !important; }
+              .bg-opacity-20 { background-color: rgba(87, 13, 248, 0.2) !important; }
+              .text-opacity-60 { color: rgba(31, 41, 55, 0.6) !important; }
+              .text-opacity-90 { color: rgba(255, 255, 255, 0.9) !important; }
+              
+              /* バッジ */
+              .badge { background-color: rgb(229, 231, 235) !important; color: rgb(31, 41, 55) !important; }
+              .badge-primary { background-color: rgb(87, 13, 248) !important; color: rgb(255, 255, 255) !important; }
+              .badge-lg { background-color: rgb(87, 13, 248) !important; color: rgb(255, 255, 255) !important; }
+              .badge-outline { background-color: transparent !important; border-color: rgb(229, 231, 235) !important; }
+              
+              /* カード */
+              .card { background-color: rgb(255, 255, 255) !important; }
+              .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important; }
+              .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important; }
+              .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important; }
+            `;
+            clonedDoc.head.appendChild(style);
+          }
+        },
       });
 
       // Canvas を Blob に変換
@@ -119,21 +253,40 @@ const DownloadButton = ({ profile, disabled }: DownloadButtonProps) => {
   };
 
   const getButtonClass = () => {
+    const baseSize = compact ? "btn-sm" : "";
+    const baseWidth = compact ? "" : "w-full";
+
     if (disabled) {
-      return "btn btn-disabled w-full gap-2";
+      return `btn btn-disabled ${baseWidth} ${baseSize} gap-2`;
     }
 
     switch (status) {
       case "generating":
-        return "btn btn-primary w-full gap-2 loading";
+        return `btn btn-primary ${baseWidth} ${baseSize} gap-2 loading`;
       case "success":
-        return "btn btn-success w-full gap-2";
+        return `btn btn-success ${baseWidth} ${baseSize} gap-2`;
       case "error":
-        return "btn btn-error w-full gap-2";
+        return `btn btn-error ${baseWidth} ${baseSize} gap-2`;
       default:
-        return "btn btn-primary w-full gap-2";
+        return `btn btn-primary ${baseWidth} ${baseSize} gap-2`;
     }
   };
+
+  // コンパクトモードの場合はボタンのみ返す
+  if (compact) {
+    return (
+      <motion.button
+        className={`${getButtonClass()} select-none font-bold shadow-lg`}
+        onClick={generateAndDownload}
+        disabled={disabled || isGenerating}
+        whileHover={!disabled && status === "idle" ? { scale: 1.05, y: -2 } : {}}
+        whileTap={!disabled && status === "idle" ? { scale: 0.95 } : {}}
+        transition={{ duration: 0.3, type: "spring" }}
+      >
+        {getButtonContent()}
+      </motion.button>
+    );
+  }
 
   return (
     <div className="space-y-6">

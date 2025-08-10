@@ -113,9 +113,47 @@ const IntroTechStackPage = () => {
         animate="visible"
         variants={containerVariants}
       >
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 max-w-7xl mx-auto">
+        {/* スマホサイズ用プレビュー（上部表示） */}
+        <div className="lg:hidden mb-8">
+          <motion.div
+            className="card bg-base-100 shadow-2xl border border-success/20"
+            variants={sectionVariants}
+            whileHover={{ scale: 1.01, y: -8 }}
+            transition={{ duration: 0.4, type: "spring" }}
+          >
+            <div className="card-body p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="avatar placeholder">
+                  <div className="bg-success text-success-content rounded-full w-8 h-8">
+                    <span className="text-sm">👁️</span>
+                  </div>
+                </div>
+                <h2 className="card-title text-lg font-bold bg-gradient-to-r from-success to-info bg-clip-text text-transparent">
+                  プレビュー
+                </h2>
+              </div>
+              <div className="flex justify-center">
+                <div className="transform scale-75 origin-top">
+                  <CardPreview profile={profile} techs={selectedTechs} />
+                </div>
+              </div>
+
+              {/* コンパクトダウンロードボタン */}
+              <div className="flex justify-center mt-4">
+                <DownloadButton
+                  profile={profile}
+                  techs={selectedTechs}
+                  disabled={!profile.name || selectedTechs.length === 0}
+                  compact={true}
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="flex gap-8 max-w-7xl mx-auto">
           {/* 設定パネル */}
-          <motion.div className="space-y-8" variants={sectionVariants}>
+          <motion.div className="flex-1 space-y-8" variants={sectionVariants}>
             {/* プロフィール設定 */}
             <motion.div
               className="card bg-base-100 shadow-2xl border border-primary/20"
@@ -191,83 +229,42 @@ const IntroTechStackPage = () => {
             </motion.div>
           </motion.div>
 
-          {/* プレビューパネル */}
-          <motion.div className="space-y-8" variants={sectionVariants}>
-            {/* カードプレビュー */}
-            <motion.div
-              className="card bg-base-100 shadow-2xl border border-success/20"
-              variants={sectionVariants}
-              whileHover={{ scale: 1.01, y: -8 }}
-              transition={{ duration: 0.4, type: "spring" }}
-            >
-              <div className="card-body p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="avatar placeholder">
-                    <div className="bg-success text-success-content rounded-full w-10 h-10">
-                      <span className="text-xl">👁️</span>
+          {/* デスクトップ用プレビューパネル（右側固定） */}
+          <motion.div className="hidden lg:block w-80 xl:w-96" variants={sectionVariants}>
+            <div className="sticky top-24">
+              <motion.div
+                className="card bg-base-100 shadow-2xl border border-success/20"
+                variants={sectionVariants}
+                whileHover={{ scale: 1.01, y: -8 }}
+                transition={{ duration: 0.4, type: "spring" }}
+              >
+                <div className="card-body p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="avatar placeholder">
+                      <div className="bg-success text-success-content rounded-full w-8 h-8">
+                        <span className="text-sm">👁️</span>
+                      </div>
                     </div>
+                    <h2 className="card-title text-lg font-bold bg-gradient-to-r from-success to-info bg-clip-text text-transparent">
+                      リアルタイムプレビュー
+                    </h2>
                   </div>
-                  <h2 className="card-title text-2xl font-bold bg-gradient-to-r from-success to-info bg-clip-text text-transparent">
-                    リアルタイムプレビュー
-                  </h2>
-                </div>
-                <div className="flex justify-center">
-                  <CardPreview profile={profile} techs={selectedTechs} />
-                </div>
-              </div>
-            </motion.div>
+                  <div className="flex justify-center">
+                    <CardPreview profile={profile} techs={selectedTechs} />
+                  </div>
 
-            {/* ダウンロード */}
-            <motion.div
-              className="card bg-base-100 shadow-2xl border border-warning/20"
-              variants={sectionVariants}
-              whileHover={{ scale: 1.01, y: -8 }}
-              transition={{ duration: 0.4, type: "spring" }}
-            >
-              <div className="card-body p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="avatar placeholder">
-                    <div className="bg-warning text-warning-content rounded-full w-10 h-10">
-                      <span className="text-xl">📥</span>
-                    </div>
+                  {/* コンパクトダウンロードボタン */}
+                  <div className="flex justify-center mt-4">
+                    <DownloadButton
+                      profile={profile}
+                      techs={selectedTechs}
+                      disabled={!profile.name || selectedTechs.length === 0}
+                      compact={true}
+                    />
                   </div>
-                  <h2 className="card-title text-2xl font-bold bg-gradient-to-r from-warning to-error bg-clip-text text-transparent">
-                    ダウンロード
-                  </h2>
                 </div>
-                <DownloadButton
-                  profile={profile}
-                  techs={selectedTechs}
-                  disabled={!profile.name || selectedTechs.length === 0}
-                />
-                {(!profile.name || selectedTechs.length === 0) && (
-                  <motion.div
-                    className="alert alert-warning mt-6"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3, type: "spring" }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="stroke-current shrink-0 h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 15.5c-.77.833.192 2.5 1.732 2.5z"
-                      />
-                    </svg>
-                    <div>
-                      <h3 className="font-bold">準備が必要です</h3>
-                      <div className="text-xs">名前を入力し、技術スタックを選択してください</div>
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
 
