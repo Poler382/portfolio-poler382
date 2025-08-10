@@ -22,7 +22,7 @@ const AppsPage = () => {
       title: "IntroTechStack",
       description:
         "技術スタックをカード形式で美しく表示し、PNG画像として保存できるツールです。SNSでのシェアに最適です。",
-      path: "/app/intro-tech-stack",
+      path: "/applist/intro-tech-stack",
       icon: Code,
       color: "from-blue-500 to-purple-600",
       status: "available",

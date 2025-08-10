@@ -38,9 +38,10 @@ const Header = () => {
               </svg>
             </label>
           </div>
-          <div className="flex-1">
-            <a className="btn btn-ghost text-2xl">WelCome My Page @Poler382</a>
-          </div>
+          <Link href="/" className="flex-1">
+            <p className="btn btn-ghost text-2xl">WelCome My Page @Poler382</p>
+          </Link>
+
           <div className="flex-none">
             <button className="btn btn-neutral btn-outline rounded-full flex flex-col gap-1">
               <Github size={20} />

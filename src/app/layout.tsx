@@ -13,13 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Intro TechStack | 技術スタック共有ツール",
-  description:
-    "技術スタックを視覚的に共有できるカード生成サイト。画像アップロード、技術選択、ドラッグ＆ドロップでカスタマイズして、PNGでダウンロード可能。",
-  keywords: ["技術スタック", "開発者", "ツール", "共有", "プロフィール", "カード"],
+  title: "Poler382's 徒然サイト",
+  description: "Poler382のポートフォリオサイトです。",
+  keywords: ["Poler382", "ポートフォリオ", "サイト", "ツール", "共有", "プロフィール", "カード"],
   openGraph: {
-    title: "Intro TechStack",
-    description: "技術スタックを視覚的に共有できるカード生成サイト",
+    title: "Poler382's 徒然サイト",
+    description: "Poler382のポートフォリオサイトです。",
     type: "website",
   },
 };
@@ -30,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" data-theme="light">
+    <html lang="ja" data-theme="white">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-base-200`}>
         {children}
       </body>

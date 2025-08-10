@@ -2,32 +2,16 @@
 
 import { Github, Mail, Linkedin, Twitter, Heart, ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
+import { navigationLinks } from "@/data/sitemap";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const socialLinks = [
-    {
-      icon: Github,
-      href: "https://github.com/Poler382",
-      label: "GitHub",
-    },
-    {
-      icon: Mail,
-      href: "mailto:contact@poler382.dev",
-      label: "Email",
-    },
-    {
-      icon: Linkedin,
-      href: "https://linkedin.com/in/poler382",
-      label: "LinkedIn",
-    },
-    {
-      icon: Twitter,
-      href: "https://twitter.com/poler382",
-      label: "Twitter",
-    },
-  ];
+  const socialLinks = navigationLinks.map((link) => ({
+    icon: link.icon,
+    href: link.href,
+    label: link.label,
+  }));
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -51,50 +35,6 @@ const Footer = () => {
           viewport={{ once: true }}
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* ブランディング */}
-            <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              <motion.h3 className="text-2xl font-bold text-primary" whileHover={{ scale: 1.05 }}>
-                Poler382
-              </motion.h3>
-              <p className="text-base-content/70 leading-relaxed">
-                Web Engineer から Product Manager へ。
-                <br />
-                技術とビジネスを繋ぐプロダクト作りに情熱を注いでいます。
-              </p>
-              <div className="flex gap-4">
-                {socialLinks.map((social, index) => {
-                  const Icon = social.icon;
-                  return (
-                    <motion.a
-                      key={index}
-                      href={social.href}
-                      target={social.href.startsWith("http") ? "_blank" : undefined}
-                      rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="w-10 h-10 bg-base-100 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 group"
-                      aria-label={social.label}
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.9 }}
-                      viewport={{ once: true }}
-                    >
-                      <Icon
-                        size={20}
-                        className="group-hover:scale-110 transition-transform duration-300"
-                      />
-                    </motion.a>
-                  );
-                })}
-              </div>
-            </motion.div>
-
             {/* ナビゲーション */}
             <motion.div
               className="space-y-4"
@@ -105,23 +45,18 @@ const Footer = () => {
             >
               <h4 className="text-lg font-semibold text-base-content">サイトマップ</h4>
               <nav className="space-y-2">
-                {[
-                  { label: "ホーム", href: "/#home" },
-                  { label: "経歴", href: "/#about" },
-                  { label: "作品", href: "/#projects" },
-                  { label: "スキル", href: "/#skills" },
-                  { label: "ブログ", href: "/blog" },
-                ].map((item, index) => (
+                {navigationLinks.map((item, index) => (
                   <motion.a
                     key={index}
                     href={item.href}
-                    className="block text-base-content/70 hover:text-primary transition-colors duration-200"
+                    className="block text-base-content/70 hover:text-primary transition-colors duration-200 flex items-center gap-2"
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
                     whileHover={{ x: 5 }}
                     viewport={{ once: true }}
                   >
+                    <item.icon size={20} className="mr-2" />
                     {item.label}
                   </motion.a>
                 ))}
