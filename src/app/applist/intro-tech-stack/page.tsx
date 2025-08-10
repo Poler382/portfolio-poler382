@@ -30,6 +30,7 @@ const IntroTechStackPage = () => {
     },
   });
   const [selectedTechs, setSelectedTechs] = useState<TechStack[]>([]);
+  const [cardOrientation, setCardOrientation] = useState<"vertical" | "horizontal">("vertical");
 
   const handleProfileChange = useCallback((updates: Partial<Profile>) => {
     setProfile((prev) => ({ ...prev, ...updates }));
@@ -134,7 +135,12 @@ const IntroTechStackPage = () => {
               </div>
               <div className="flex justify-center">
                 <div className="transform scale-75 origin-top">
-                  <CardPreview profile={profile} techs={selectedTechs} />
+                  <CardPreview
+                    profile={profile}
+                    techs={selectedTechs}
+                    orientation={cardOrientation}
+                    onOrientationChange={setCardOrientation}
+                  />
                 </div>
               </div>
 
@@ -151,9 +157,9 @@ const IntroTechStackPage = () => {
           </motion.div>
         </div>
 
-        <div className="flex gap-8 max-w-7xl mx-auto">
+        <div className="flex gap-6 max-w-7xl mx-auto">
           {/* 設定パネル */}
-          <motion.div className="flex-1 space-y-8" variants={sectionVariants}>
+          <motion.div className="w-2/5 space-y-6" variants={sectionVariants}>
             {/* プロフィール設定 */}
             <motion.div
               className="card bg-base-100 shadow-2xl border border-primary/20"
@@ -161,8 +167,8 @@ const IntroTechStackPage = () => {
               whileHover={{ scale: 1.01, y: -8 }}
               transition={{ duration: 0.4, type: "spring" }}
             >
-              <div className="card-body p-8">
-                <div className="flex items-center gap-3 mb-6"></div>
+              <div className="card-body p-6">
+                <div className="flex items-center gap-3 mb-4"></div>
                 <ProfileSection profile={profile} onProfileChange={handleProfileChange} />
               </div>
             </motion.div>
@@ -174,19 +180,19 @@ const IntroTechStackPage = () => {
               whileHover={{ scale: 1.01, y: -8 }}
               transition={{ duration: 0.4, type: "spring" }}
             >
-              <div className="card-body p-8">
-                <div className="flex items-center gap-3 mb-6">
+              <div className="card-body p-6">
+                <div className="flex items-center gap-3 mb-4">
                   <div className="avatar placeholder">
                     <IconParts
                       icon={<Search color="white" />}
                       shapeSetting={{
-                        shapeSize: 12,
+                        shapeSize: 10,
                         backgroundColor: "bg-secondary",
                         borderColor: "border-secondary",
                       }}
                     />
                   </div>
-                  <h2 className="card-title text-2xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
+                  <h2 className="card-title text-xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
                     技術スタック選択
                   </h2>
                 </div>
@@ -201,15 +207,15 @@ const IntroTechStackPage = () => {
               whileHover={{ scale: 1.01, y: -8 }}
               transition={{ duration: 0.4, type: "spring" }}
             >
-              <div className="card-body p-8">
-                <div className="flex items-center justify-between mb-6">
+              <div className="card-body p-6">
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="avatar placeholder">
-                      <div className="bg-accent text-accent-content rounded-full w-10 h-10">
-                        <span className="text-xl">📝</span>
+                      <div className="bg-accent text-accent-content rounded-full w-8 h-8">
+                        <span className="text-lg">📝</span>
                       </div>
                     </div>
-                    <h2 className="card-title text-2xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+                    <h2 className="card-title text-xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
                       選択した技術
                     </h2>
                   </div>
@@ -230,7 +236,7 @@ const IntroTechStackPage = () => {
           </motion.div>
 
           {/* デスクトップ用プレビューパネル（右側固定） */}
-          <motion.div className="hidden lg:block w-80 xl:w-96" variants={sectionVariants}>
+          <motion.div className="hidden lg:block flex-1" variants={sectionVariants}>
             <div className="sticky top-24">
               <motion.div
                 className="card bg-base-100 shadow-2xl border border-success/20"
@@ -250,7 +256,12 @@ const IntroTechStackPage = () => {
                     </h2>
                   </div>
                   <div className="flex justify-center">
-                    <CardPreview profile={profile} techs={selectedTechs} />
+                    <CardPreview
+                      profile={profile}
+                      techs={selectedTechs}
+                      orientation={cardOrientation}
+                      onOrientationChange={setCardOrientation}
+                    />
                   </div>
 
                   {/* コンパクトダウンロードボタン */}
