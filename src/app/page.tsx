@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { ArrowRight, Code, FileText, Sparkles } from "lucide-react";
+import { Code } from "lucide-react";
 import Header from "@/components/common/Header";
 import Footer from "@/components/Footer";
 
@@ -80,8 +79,6 @@ const HomePage = () => {
           variants={containerVariants}
         >
           {apps.map((app) => {
-            const IconComponent = app.icon;
-
             return (
               <motion.div
                 key={app.path}

@@ -16,7 +16,7 @@ import DownloadButton from "./components/DownloadButton";
 // Types
 import type { TechStack } from "@/data/techStacks";
 import type { Profile } from "@/types";
-import { Search, User } from "lucide-react";
+import { Search } from "lucide-react";
 import IconParts from "./components/IconParts";
 
 const IntroTechStackPage = () => {

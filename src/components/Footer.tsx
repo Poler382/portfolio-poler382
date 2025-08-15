@@ -1,17 +1,11 @@
 "use client";
 
-import { Github, Mail, Linkedin, Twitter, Heart, ArrowUp } from "lucide-react";
+import { Heart, ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { navigationLinks } from "@/data/sitemap";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
-  const socialLinks = navigationLinks.map((link) => ({
-    icon: link.icon,
-    href: link.href,
-    label: link.label,
-  }));
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });

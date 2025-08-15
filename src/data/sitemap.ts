@@ -1,4 +1,4 @@
-import { Github, BookOpen, Smartphone, User, Mail } from "lucide-react";
+import { BookOpen, Smartphone, User, Mail } from "lucide-react";
 export const navigationLinks = [
   { href: "/blog", label: "Blog", icon: BookOpen },
   { href: "/applist", label: "アプリ", icon: Smartphone },
