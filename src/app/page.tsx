@@ -64,7 +64,7 @@ const HomePage = () => {
         {/* ヒーローセクション */}
         <motion.div className="text-center mb-16" variants={cardVariants}>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-base-content mb-6">
-            Welcome to My Apps
+            Welcome to My Apps(v0.3.0)
           </h1>
           <p className="text-lg sm:text-xl text-base-content/70 max-w-3xl mx-auto leading-relaxed">
             便利なWebアプリケーションを作成しています。
